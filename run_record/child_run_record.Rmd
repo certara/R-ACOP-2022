@@ -1,0 +1,139 @@
+---
+title: "Data Overview"
+output: html_document
+---
+
+# Overview of the data {.tabset .tabset-fade .tabset-pills}
+
+## Summary
+
+::: {.keymessage}
+*  Elimination profile appears to be mono-exponential
+*  Body weight and/or gender appear to influence PK
+:::
+
+<br><br>
+
+## Demography summary {.tabset .tabset-fade .tabset-pills}
+
+```{r demography-summary, echo = TRUE, warning=FALSE, message=FALSE}
+
+htmltools::includeHTML(path = "./tables/dm_table.html")
+
+```
+
+<br><br>
+
+## Mean Concentration Summary {.tabset .tabset-fade .tabset-pills}
+
+```{r conc-summary, echo = TRUE, warning=FALSE, message=FALSE}
+
+htmltools::includeHTML(path = "./tables/mean_conc_table.html")
+
+```
+
+<br><br>
+
+## PK profiles Linear {.tabset .tabset-fade .tabset-pills}
+
+```{r pkplot_static, echo = FALSE, eval = TRUE, out.width='800px', out.height='600px', eval = !use_plotly}
+knitr::include_graphics('./plots/pkplot.png')
+```
+
+
+```{r pkplot, echo = TRUE, warning=FALSE, message=FALSE, out.width="80%", out.height="50%", eval = use_plotly}
+
+pkplot <- readRDS(file='./plots/pkplot.RDS')
+ggplotly(pkplot)
+
+```
+
+<br><br>
+
+## PK profiles Log {.tabset .tabset-fade .tabset-pills}
+
+::: {.results}
+-   Disposition appears mono-exponential
+:::
+
+```{r mean-log_static, echo = FALSE, warning=FALSE, message=FALSE, out.width='800px', out.height='600px', eval = !use_plotly}
+knitr::include_graphics('./plots/pkplotlog.png')
+```
+
+
+```{r mean-log, echo = TRUE, warning=FALSE, message=FALSE, out.width="80%", out.height="50%", eval = use_plotly}
+pkplotlog <- readRDS(file='./plots/pkplotlog.RDS')
+ggplotly(pkplotlog)
+```
+
+
+<br><br>
+
+## Facet Gender and Dose Linear {.tabset .tabset-fade .tabset-pills}
+
+::: {.results}
+-   Possible gender difference in PK with observed concentrations higher in females
+:::
+
+```{r gender-linear_static, echo = FALSE, warning=FALSE, message=FALSE, out.width='800px', out.height='600px', eval = !use_plotly}
+knitr::include_graphics('./plots/pkplot_dosesex.png')
+```
+
+```{r gender-linear, echo = TRUE, warning=FALSE, message=FALSE,out.width="80%", out.height="50%", eval = use_plotly}
+pkplot_dosesex <- readRDS(file='./plots/pkplot_dosesex.RDS')
+ggplotly(pkplot_dosesex)
+```
+
+<br><br>
+
+## Facet Race and Dose Linear {.tabset .tabset-fade .tabset-pills}
+
+::: {.results}
+-   PK appears similar across race
+:::
+
+```{r race-linear_static, echo = FALSE, warning=FALSE, message=FALSE, out.width='800px', out.height='600px', eval = !use_plotly}
+knitr::include_graphics('./plots/pkplot_doserace.png')
+```
+
+```{r race-linear, echo = TRUE, warning=FALSE, message=FALSE, out.width="80%", out.height="50%", eval = use_plotly}
+pkplot_doserace <- readRDS(file='./plots/pkplot_doserace.RDS')
+ggplotly(pkplot_doserace)
+```
+
+<br><br>
+
+## Facet WT Linear {.tabset .tabset-fade .tabset-pills}
+
+::: {.results}
+-   Possible WT influence on PK with larger subjects having lower exposures
+:::
+
+
+```{r wt-linear_static, echo = FALSE, warning=FALSE, message=FALSE, out.width='800px', out.height='500px', eval = !use_plotly}
+knitr::include_graphics('./plots/pkplot_dosewt.png')
+```
+
+```{r wt-linear, echo = TRUE, warning=FALSE, message=FALSE, out.width="80%", out.height="50%", eval=use_plotly}
+pkplot_dosewt <- readRDS(file='./plots/pkplot_dosewt.RDS')
+ggplotly(pkplot_dosewt)
+```
+
+<br><br>
+
+## Facet Age Linear {.tabset .tabset-fade .tabset-pills}
+
+::: {.results}
+-   PK appears similar across age groups.  Note limited age range (38 to 61 y). 
+:::
+
+
+```{r age-linear_static, echo = FALSE, warning=FALSE, message=FALSE, out.width='800px', out.height='500px', eval = !use_plotly}
+knitr::include_graphics('./plots/pkplot_doseage.png')
+```
+
+
+```{r age-linear, echo = TRUE, warning=FALSE, message=FALSE, fig.width = 8, fig.height = 6, eval = use_plotly}
+pkplot_doseage <- readRDS(file='./plots/pkplot_doseage.RDS')
+pkplot_doseage
+```
